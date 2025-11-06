@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us </title>
+  <style>
+    /* ===== GLOBAL STYLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      background-color: #fffaf3;
+      color: #4b3b2f;
+      scroll-behavior: smooth;
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .main-about {
+      background: linear-gradient(180deg, #fffaf3, #fdf7ee);
+      padding: 80px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-section {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      padding: 0 15px; /* kam side spacing */
+    }
+
+    .about-text h2 {
+      font-size: 2.6rem;
+      color: #d97d0d;
+      font-weight: 700;
+    }
+
+    .line-about {
+      width: 70px;
+      height: 4px;
+      background: #d97d0d;
+      border-radius: 3px;
+      margin: 15px auto 20px;
+    }
+
+    .about-text h3 {
+      font-size: 1.4rem;
+      color: #4b3b2f;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      text-align: justify;
+      margin-bottom: 40px;
+    }
+
+    /* ===== NAVIGATION BUTTONS ===== */
+    .navigation {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .btn-nav {
+      display: inline-block;
+      background: #d97d0d;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-nav:hover {
+      background: #f1c85d;
+      color: #333;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(212,160,23,0.4);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .about-text h2 { font-size: 2.2rem; }
+      .about-text h3 { font-size: 1.2rem; }
+      .about-text p { font-size: 1rem; line-height: 1.7; }
+      .line-about { width: 60px; height: 3px; margin: 12px auto 18px; }
+    }
+
+    @media (max-width: 480px) {
+      .about-text h2 { font-size: 1.8rem; }
+      .about-text h3 { font-size: 1rem; }
+      .about-text p { font-size: 0.95rem; line-height: 1.6; }
+      .line-about { width: 50px; height: 3px; margin: 10px auto 15px; }
+      .btn-nav { padding: 10px 25px; font-size: 0.9rem; }
+    }
+
+    @media (max-width: 320px) {
+      .about-text h2 { font-size: 1.6rem; }
+      .about-text h3 { font-size: 0.9rem; }
+      .about-text p { font-size: 0.85rem; line-height: 1.5; }
+      .line-about { width: 40px; height: 2.5px; margin: 8px auto 12px; }
+      .btn-nav { padding: 8px 20px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <div class="main-about" id="about">
+    <div class="about-section">
+      <div class="about-text">
+        <h2>Cleanliness is Integrity</h2>
+        <div class="line-about"></div>
+        <h3>Nature gave the flavor, we preserved it.</h3>
+        <p>
+          For over 25 years, Bakery Heaven has been dedicated to delighting your taste buds with the finest baked goods, spreading joy, warmth, and a sense of home to every family.  
+          From freshly baked cakes, airy pastries, and melt-in-your-mouth cookies to traditional biscuits, savory treats, and seasonal specialties, every item is crafted with meticulous care and love.  
+          We take pride in blending time-honored recipes with modern baking innovations, ensuring every product not only tastes exceptional but is made following the highest standards of hygiene and quality.  
+          By sourcing the freshest ingredients and focusing on purity, flavor, and nutritional goodness, we guarantee that every bite brings happiness and satisfaction.  
+          Our team’s passion and dedication inspire us to continue baking with integrity, excellence, and a love for creating memorable experiences for our customers.  
+          At Bakery Heaven, every creation tells a story of tradition, care, and the joy of sharing delicious moments with your loved ones.
+        </p>
+      </div>
+
+      <!-- ===== NAVIGATION BUTTONS ===== -->
+      <div class="navigation">
+        <a href="index.html" class="btn-nav">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bakery Heaven</title>
+  <style>
+    /* 🌟 GLOBAL STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #fffaf3;
+      color: #4b3b2f;
+      scroll-behavior: smooth;
+    }
+
+    /* 🌟 NAVBAR */
+    section {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    .logo img {
+      width: 90px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      font-size: 16px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    section.scrolled .navbar a {
+      color: #4b3b2f;
+    }
+
+    .navbar a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: -4px;
+      background: #d4a017;
+      transition: width 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #d4a017;
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+    }
+
+    /* 🌟 TOGGLE MENU */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .menu-toggle div {
+      width: 28px;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 2px;
+      transition: all 0.4s ease;
+    }
+
+    section.scrolled .menu-toggle div {
+      background-color: #4b3b2f;
+    }
+
+    .menu-toggle.open div:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+    .menu-toggle.open div:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.open div:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
+    }
+
+    /* 🌟 HERO SECTION */
+    .main-two {
+      width: 100%;
+      height: 100vh;
+      background: url('cake1.jpg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      position: relative;
+      text-align: center;
+      transition: background-image 1s ease-in-out;
+      overflow: hidden;
+    }
+
+    .main-two::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .main-two .content {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .main-two h1 {
+      font-size: 3.2rem;
+      margin-bottom: 15px;
+      color: #ffecb3;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .main-two p {
+      font-size: 1.3rem;
+      color: #fff6e0;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 🌟 BISCUIT SECTION */
+    .main-three {
+      background: linear-gradient(180deg, #fffaf3, #f7f3e9);
+      padding: 100px 0;
+    }
+
+    .biscuit-section {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .biscuit-header h1 {
+      font-size: 2.8rem;
+      color: #4b3b2f;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .biscuit-header p {
+      color: #6a5849;
+      font-size: 1.15rem;
+      max-width: 700px;
+      margin: 10px auto 40px;
+      line-height: 1.6;
+    }
+
+    .biscuit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .biscuit-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .biscuit-card:nth-child(2) { animation-delay: 0.2s; }
+    .biscuit-card:nth-child(3) { animation-delay: 0.4s; }
+    .biscuit-card:nth-child(4) { animation-delay: 0.6s; }
+    .biscuit-card:nth-child(5) { animation-delay: 0.8s; }
+    .biscuit-card:nth-child(6) { animation-delay: 1s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .biscuit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .biscuit-card img {
+      width: 100%;
+      max-width: 180px;
+      margin: auto;
+      display: block;
+    }
+
+    .biscuit-card h3 {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #d4a017;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* 🌟 RESPONSIVE DESIGN */
+    @media (max-width: 992px) {
+      .biscuit-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .navbar.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .navbar a {
+        color: #4b3b2f;
+      }
+
+      .main-two {
+        height: 75vh;
+      }
+
+      .main-two h1 { font-size: 2.2rem; }
+      .main-two p { font-size: 1rem; }
+
+      .biscuit-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .main-two { height: 65vh; }
+      .main-two h1 { font-size: 1.8rem; }
+      .main-two p { font-size: 0.9rem; }
+      .biscuit-header h1 { font-size: 2rem; }
+    }
+
+    @media (max-width: 320px) {
+      .main-two { height: 60vh; }
+      .main-two h1 { font-size: 1.5rem; }
+      .biscuit-header h1 { font-size: 1.6rem; }
+      .biscuit-header p { font-size: 0.9rem; }
+      .biscuit-card img { max-width: 130px; }
+    }
+
+
+    /* ===== BREAD SECTION ===== */
+.main-four {
+  background: linear-gradient(180deg, #fffdf8 0%, #f7f3e9 100%);
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.bread-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.bread-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.bread-text {
+  flex: 1;
+  min-width: 300px;
+  animation: fadeInLeft 1.2s ease;
+}
+
+.bread-text h2 {
+  font-size: 2.8rem;
+  color: #3e2e22;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.bread-text .line {
+  width: 80px;
+  height: 4px;
+  background: #d4a017;
+  margin: 15px 0 25px;
+  border-radius: 5px;
+}
+
+.bread-text h3 {
+  font-size: 1.6rem;
+  color: #7b5c41;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.bread-text p {
+  font-size: 1rem;
+  color: #5f5146;
+  margin-bottom: 35px;
+  line-height: 1.7;
+  max-width: 460px;
+}
+
+/* Button */
+.btn_explore {
+  background: #d4a017;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(212, 160, 23, 0.4);
+}
+
+.btn_explore:hover {
+  background: #b68b14;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn_explore a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* Bread Image */
+.bread-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: float 4s ease-in-out infinite;
+}
+
+.bread-img img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  transition: transform 0.5s ease;
+}
+
+.bread-img img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .bread-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 50px;
+  }
+
+  .bread-text h2 {
+    font-size: 2.4rem;
+  }
+
+  .bread-text h3 {
+    font-size: 1.3rem;
+  }
+
+  .bread-text p {
+    font-size: 0.95rem;
+    margin: 0 auto 25px;
+  }
+
+  .bread-img img {
+    max-width: 550px;
+  }
+}
+
+@media (max-width: 750px) {
+  .bread-text .line {
+    width: 50px;
+    height: 2px;
+    margin: 10px auto 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .bread-text h2 {
+    font-size: 2rem;
+  }
+
+  .bread-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .bread-text p {
+    font-size: 0.9rem;
+    padding: 0 15px;
+  }
+
+  .bread-img img {
+    max-width: 320px;
+  }
+
+  /* ✅ Line stays aligned (not hidden) */
+  .bread-text .line {
+    width: 40px;
+    height: 2px;
+    margin: 8px auto 14px;
+  }
+}
+
+@media (max-width: 320px) {
+
+   .bread-text .line {
+    width: 30px;
+    height: 2px;
+  }
+  .bread-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .bread-text h3 {
+    font-size: 1.1rem;
+  }
+
+  .bread-text p {
+    font-size: 0.85rem;
+  }
+
+  .bread-img img {
+    max-width: 250px;
+  }
+}
+
+
+/* ===== DONUT SECTION ===== */
+.main-five {
+  background: linear-gradient(180deg, #fffaf5, #f7f3ee);
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.donut-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.donut-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  animation: fadeSlideUp 1.2s ease;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.donut-text {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.donut-text h2 {
+  font-size: 2.8rem;
+  color: #d97d0d;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.line-donut {
+  width: 80px;
+  height: 4px;
+  background: #d97d0d;
+  margin: 14px auto 22px;
+  border-radius: 4px;
+}
+
+.donut-text h3 {
+  font-size: 1.4rem;
+  color: #5a4632;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.donut-text p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.7;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#btn_three {
+  background: #d97d0d;
+  color: #fff;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#btn_three:hover {
+  background: #b5670b;
+  transform: translateY(-3px);
+}
+
+#btn_three a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.donut-img-left,
+.donut-img-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.donut-img-left img,
+.donut-img-right img {
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+.donut-img-left img:hover,
+.donut-img-right img:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .donut-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .donut-text h2 {
+    font-size: 2.4rem;
+  }
+
+  .line-donut {
+    width: 60px;
+  }
+
+  .donut-text h3 {
+    font-size: 1.3rem;
+  }
+
+  .donut-text p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .donut-text h2 {
+    font-size: 2rem;
+  }
+
+  .donut-text h3 {
+    font-size: 1.1rem;
+  }
+
+  .donut-text p {
+    font-size: 0.9rem;
+    padding: 0 15px;
+  }
+
+  .line-donut {
+    width: 45px;
+  }
+
+  .donut-img-left img,
+  .donut-img-right img {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 320px) {
+  .donut-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .donut-text p {
+    font-size: 0.85rem;
+  }
+
+  .line-donut {
+    width: 30px;
+  }
+
+  .donut-img-left img,
+  .donut-img-right img {
+    max-width: 230px;
+  }
+}
+
+
+
+/* ===== PASTRY SECTION ===== */
+.pastry-section {
+  padding: 80px 20px;
+  background: #fffdf7;
+}
+
+.pastry-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Image */
+.pastry-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.pastry-img img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease;
+}
+
+.pastry-img img:hover {
+  transform: scale(1.05);
+}
+
+/* Text */
+.pastry-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.pastry-text h1 {
+  font-size: 2.5rem;
+  color: #1c4b27;
+  margin-bottom: 10px;
+}
+
+.pastry-text .line-pastry {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #d4a017, #f1c85d);
+  margin: 10px 0 20px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+
+.pastry-text h3 {
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.pastry-text p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Button */
+#btn_four a {
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(90deg, #d4a017, #b88a12);
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+#btn_four a:hover {
+  background: linear-gradient(90deg, #b88a12, #d4a017);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+  .pastry-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .pastry-img img {
+    max-width: 320px;
+  }
+
+  .pastry-text h1 {
+    font-size: 2rem;
+  }
+
+  .pastry-text p {
+    font-size: 0.95rem;
+    padding: 0 10px;
+  }
+   .pastry-text .line-pastry {
+    width: 60px;
+    height: 3px;
+    margin: 8px auto 18px;
+  }
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .pastry-section {
+    padding: 50px 10px;
+  }
+
+  .pastry-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .pastry-text h3 {
+    font-size: 1.1rem;
+  }
+
+  .pastry-text p {
+    font-size: 0.9rem;
+  }
+
+  .pastry-img img {
+    max-width: 260px;
+  }
+
+  #btn_four a {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+  .pastry-text .line-pastry {
+    width: 50px;
+    height: 3px;
+    margin: 6px auto 16px;
+  }
+}
+
+/* Small Mobile (max-width: 320px) */
+@media (max-width: 320px) {
+  .pastry-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .pastry-text p {
+    font-size: 0.85rem;
+  }
+
+  .pastry-img img {
+    max-width: 220px;
+  }
+
+  #btn_four a {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+  }
+   .pastry-text .line-pastry {
+    width: 40px;
+    height: 2.5px;
+    margin: 5px auto 14px;
+  }
+}
+
+
+
+/* ===== NIMKO SECTION ===== */
+.main-seven {
+  background: linear-gradient(180deg, #fff8f0, #fff2e5);
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nimko-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.nimko-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+/* Image side */
+.nimko-img {
+  flex: 1;
+  text-align: center;
+}
+
+.nimko-img img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.nimko-img img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Text side */
+.nimko-text {
+  flex: 1;
+  text-align: left;
+}
+
+.nimko-text h1 {
+  font-size: 2.6rem;
+  color: #d97d0d; /* warm golden-orange */
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.line-nimko {
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #d97d0d, #f1c85d);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.nimko-text h3 {
+  font-size: 1.4rem;
+  color: #5a4632; /* warm brown */
+  margin-bottom: 15px;
+}
+
+.nimko-text p {
+  font-size: 1.05rem;
+  color: #6a5140;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+/* Button */
+.btn-nimko {
+  background: linear-gradient(90deg, #d97d0d, #f1c85d);
+  border: none;
+  padding: 12px 35px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-nimko a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn-nimko:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(217,125,13,0.4);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Medium Screens */
+@media (max-width: 992px) {
+  .nimko-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nimko-text {
+    text-align: center;
+  }
+
+  .nimko-text h1 { font-size: 2.2rem; }
+  .nimko-text h3 { font-size: 1.2rem; }
+  .nimko-text p { margin: 0 auto 25px; }
+  .line-nimko { margin: 10px auto 20px; }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+  .nimko-text h1 { font-size: 1.8rem; }
+  .nimko-text h3 { font-size: 1rem; }
+  .nimko-text p { font-size: 0.95rem; padding: 0 10px; }
+  .nimko-img img { max-width: 280px; }
+  .btn-nimko { padding: 10px 25px; }
+}
+
+/* Small Mobile (320px) */
+@media (max-width: 320px) {
+  .nimko-text h1 { font-size: 1.5rem; }
+  .nimko-text h3 { font-size: 0.9rem; }
+  .nimko-text p { font-size: 0.85rem; }
+  .nimko-img img { max-width: 220px; }
+  .line-nimko { width: 60px; height: 3px; }
+}
+
+
+
+/* ===== PUFF SECTION ===== */
+.main-eight {
+  background: linear-gradient(180deg, #fff8f2, #fff3e8);
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.puff-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.puff-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+/* Image side */
+.puff-img {
+  flex: 1;
+  text-align: center;
+}
+
+.puff-img img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 20px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.puff-img img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Text side */
+.puff-text {
+  flex: 1;
+  text-align: left;
+}
+
+.puff-text h1 {
+  font-size: 2.6rem;
+  color: #d97d0d; /* warm golden-orange */
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.line-puff {
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #d97d0d, #f1c85d);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.puff-text h3 {
+  font-size: 1.4rem;
+  color: #5a4632; /* warm brown */
+  margin-bottom: 15px;
+}
+
+.puff-text p {
+  font-size: 1.05rem;
+  color: #6a5140;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+/* Button */
+.btn-puff {
+  background: linear-gradient(90deg, #d97d0d, #f1c85d);
+  border: none;
+  padding: 12px 35px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-puff a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn-puff:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(217,125,13,0.4);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Medium Screens */
+@media (max-width: 992px) {
+  .puff-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .puff-text {
+    text-align: center;
+  }
+
+  .puff-text h1 { font-size: 2.2rem; }
+  .puff-text h3 { font-size: 1.2rem; }
+  .puff-text p { margin: 0 auto 25px; }
+  .line-puff { margin: 10px auto 20px; }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+  .puff-text h1 { font-size: 1.8rem; }
+  .puff-text h3 { font-size: 1rem; }
+  .puff-text p { font-size: 0.95rem; padding: 0 10px; }
+  .puff-img img { max-width: 280px; }
+  .btn-puff { padding: 10px 25px; }
+}
+
+/* Small Mobile (320px) */
+@media (max-width: 320px) {
+  .puff-text h1 { font-size: 1.5rem; }
+  .puff-text h3 { font-size: 0.9rem; }
+  .puff-text p { font-size: 0.85rem; }
+  .puff-img img { max-width: 220px; }
+  .line-puff { width: 60px; height: 3px; }
+}
+
+
+
+/* ===== PIZZA SECTION ===== */
+.main-nine {
+  background: linear-gradient(180deg, #fffaf7, #fff3e9);
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pizza-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.pizza-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+/* Image side */
+.pizza-img {
+  flex: 1;
+  text-align: center;
+}
+
+.pizza-img img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 20px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.pizza-img img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Text side */
+.pizza-text {
+  flex: 1;
+  text-align: left;
+}
+
+.pizza-text h1 {
+  font-size: 2.6rem;
+  color: #d44141; /* rich red for pizza */
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.line-pizza {
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #d44141, #f28c28);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.pizza-text h3 {
+  font-size: 1.4rem;
+  color: #5a4632;
+  margin-bottom: 15px;
+}
+
+.pizza-text p {
+  font-size: 1.05rem;
+  color: #6a5140;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+/* Button */
+.btn-pizza {
+  background: linear-gradient(90deg, #d44141, #f28c28);
+  border: none;
+  padding: 12px 35px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-pizza a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn-pizza:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(212,65,65,0.4);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Medium Screens */
+@media (max-width: 992px) {
+  .pizza-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .pizza-text {
+    text-align: center;
+  }
+
+  .pizza-text h1 { font-size: 2.2rem; }
+  .pizza-text h3 { font-size: 1.2rem; }
+  .pizza-text p { margin: 0 auto 25px; }
+  .line-pizza { margin: 10px auto 20px; }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+  .pizza-text h1 { font-size: 1.8rem; }
+  .pizza-text h3 { font-size: 1rem; }
+  .pizza-text p { font-size: 0.95rem; padding: 0 10px; }
+  .pizza-img img { max-width: 280px; }
+  .btn-pizza { padding: 10px 25px; }
+}
+
+/* Small Mobile (320px) */
+@media (max-width: 320px) {
+  .pizza-text h1 { font-size: 1.5rem; }
+  .pizza-text h3 { font-size: 0.9rem; }
+  .pizza-text p { font-size: 0.85rem; }
+  .pizza-img img { max-width: 220px; }
+  .line-pizza { width: 60px; height: 3px; }
+}
+
+
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #111; /* dark black */
+  padding: 60px 20px 30px;
+  color: #fff; /* white text for contrast */
+  font-family: "Poppins", sans-serif;
+}
+
+.footer h2 {
+  color: #f1c85d; /* golden highlight */
+  margin-bottom: 15px;
+}
+
+.footer h3 {
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.footer p, 
+.footer ul li {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+  color: #f1c85d;
+}
+
+.footer-social .social-icons a {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.footer-social .social-icons a img {
+  width: 30px;
+  filter: brightness(0) invert(1); /* makes icons white */
+  transition: transform 0.3s ease;
+}
+
+.footer-social .social-icons a:hover img {
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 40px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Medium Screens */
+@media (max-width: 992px) {
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .footer-social {
+    justify-content: center;
+  }
+}
+
+/* Small Screens */
+@media (max-width: 480px) {
+  .footer h2 {
+    font-size: 1.5rem;
+  }
+
+  .footer h3 {
+    font-size: 1.1rem;
+  }
+
+  .footer p,
+  .footer-links ul li {
+    font-size: 0.85rem;
+  }
+
+  .footer-social .social-icons a img {
+    width: 25px;
+  }
+}
+
+
+
+
+/* ===== SWEET SECTION ===== */
+.sweet-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 50px 15px;
+  background-color: #fffaf3;
+}
+
+.sweet-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  width: 100%;
+  gap: 25px;
+}
+
+/* ===== IMAGE ===== */
+.sweet-img {
+  flex: 1 1 320px;
+  text-align: center;
+}
+
+.sweet-img img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sweet-img img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+/* ===== TEXT ===== */
+.sweet-text {
+  flex: 1 1 360px;
+  text-align: left;
+}
+
+.sweet-text h1 {
+  color: #d97d0d;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+/* ===== LINE ===== */
+.line-sweet {
+  width: 80px;
+  height: 4px;
+  background: #d97d0d;
+  border-radius: 3px;
+  margin-bottom: 12px;
+}
+
+.sweet-text h3 {
+  font-size: 1.15rem;
+  color: #4b3b2f;
+  margin-bottom: 8px;
+}
+
+.sweet-text p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 460px;
+}
+
+/* ===== TABLET (<= 768px) ===== */
+@media (max-width: 768px) {
+  .sweet-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .sweet-text {
+    text-align: center;
+  }
+
+  .sweet-text h1 {
+    font-size: 2rem;
+  }
+
+  .sweet-text h3 {
+    font-size: 1.1rem;
+  }
+
+  .sweet-text p {
+    font-size: 0.9rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .sweet-img img {
+    max-width: 340px;
+  }
+
+  .line-sweet {
+    width: 60px;
+    height: 3px;
+    margin: 10px auto;
+  }
+}
+
+/* ===== MOBILE (<= 480px) ===== */
+@media (max-width: 480px) {
+  .sweet-section {
+    padding: 35px 10px;
+  }
+
+  .sweet-container {
+    gap: 15px;
+  }
+
+  .sweet-img img {
+    max-width: 280px;
+  }
+
+  .sweet-text h1 {
+    font-size: 1.7rem;
+  }
+
+  .sweet-text h3 {
+    font-size: 1rem;
+  }
+
+  .sweet-text p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .line-sweet {
+    width: 45px;
+    height: 3px;
+    margin: 8px auto;
+  }
+}
+
+/* ===== SMALL MOBILE (<= 320px) ===== */
+@media (max-width: 320px) {
+  .sweet-section {
+    padding: 30px 8px;
+  }
+
+  .sweet-container {
+    gap: 12px;
+  }
+
+  .sweet-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .sweet-text h3 {
+    font-size: 0.9rem;
+  }
+
+  .sweet-text p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .sweet-img img {
+    max-width: 240px;
+    border-radius: 15px;
+  }
+
+  .line-sweet {
+    width: 35px;
+    height: 2.5px;
+    margin: 6px auto;
+  }
+}
+
+
+
+
+  </style>
+</head>
+<body>
+  <!-- 🌟 NAVBAR -->
+  <section id="nav">
+    <div class="container">
+      <div class="flex">
+        <div class="logo">
+          <img src="logo-removebg-preview.png" alt="Bakery Heaven Logo" />
+        </div>
+
+        <div class="menu-toggle" id="menu-toggle">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div class="navbar" id="navbar">
+          <a href="#">Home</a>
+          <!-- <a href="#biscuit">Biscuits</a> -->
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌟 HERO SECTION -->
+  <div class="main-two" id="hero">
+    <div class="content">
+      <h1>Freshly Baked Happiness, One Slice at a Time 🍰</h1>
+      <p>Every cake tells a story of sweetness and joy.</p>
+    </div>
+  </div>
+
+  <!-- 🌟 BISCUIT SECTION -->
+  <div class="main-three" id="biscuit">
+    <div class="biscuit-section">
+      <div class="biscuit-header">
+        <h1>Royal Biscuit Collection 👑</h1>
+        <p>Want to feel like royalty? Taste the crunch of perfection in every bite.</p>
+      </div>
+
+      <div class="biscuit-grid">
+        <div class="biscuit-card"><img src="pista_biscuit-2.png"><h3>Pista Khatai</h3></div>
+        <div class="biscuit-card"><img src="jam_biscuit.png"><h3>Jam Biscuit</h3></div>
+        <div class="biscuit-card"><img src="almond_ladoo_biscuit.png"><h3>Almond Biscuit</h3></div>
+        <div class="biscuit-card"><img src="zeera_biscuit-1.png"><h3>Zeera Biscuit</h3></div>
+        <div class="biscuit-card"><img src="black_currant_biscuit.png"><h3>Black Currant</h3></div>
+        <div class="biscuit-card"><img src="walnut_biscuit-1-2.png"><h3>Walnut Biscuit</h3></div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- ===== BREAD SECTION ===== -->
+<div class="main-four">
+  <div class="bread-section" id="bread">
+    <div class="bread-container">
+      <div class="bread-text">
+        <h2>Artisan Bread Collection</h2>
+        <div class="line"></div>
+        <h3>Classical Baking Tradition</h3>
+        <p>
+          Crafted with time, patience, and passion — our breads are soft, golden, 
+          and baked to perfection. Each loaf tells the story of warmth and tradition 🍞
+        </p>
+      </div>
+
+      <div class="bread-img">
+        <img src="bread-7026689_1280.jpg" alt="Freshly baked bread" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ===== DONUT SECTION ===== -->
+<div class="main-five">
+  <div class="donut-section" id="donut">
+    <div class="donut-container">
+      
+     
+
+      <div class="donut-text">
+        <h2>DONUTS</h2>
+        <div class="line-donut"></div>
+        <h3>Chocolate • Vanilla • Strawberry</h3>
+        <p>Soft, fluffy, and irresistibly delicious — each donut glazed to perfection and bursting with flavor. Treat yourself to sweetness that melts in your mouth 🍩</p>
+      </div>
+
+      <div class="donut-img-right">
+        <img src="doughnut-3981869_1280.jpg" alt="Donut Variety">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="main-six" id="pastry">
+  <div class="pastry-section">
+    <div class="pastry-container">
+
+      <div class="pastry-img">
+        <img src="Pastry (1).png" alt="Chocolate Cherry Pastry">
+      </div>
+
+      <div class="pastry-text">
+        <h1>Chocolate Cherry Pastry 🍒</h1>
+        <div class="line-pastry"></div>
+        <h3>Artisan Style Pastry</h3>
+        <p>Delight in every layer — rich chocolate, smooth cream, and a cherry on top. A perfect indulgence for your sweet moments.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== NIMKO SECTION ===== -->
+<div class="main-seven" id="nimko">
+  <div class="nimko-section">
+    <div class="nimko-container">
+
+      <div class="nimko-text">
+        <h1>Crispy Nimko Mix </h1>
+        <div class="line-nimko"></div>
+        <h3>Flattened, Fried & Seasoned</h3>
+        <p>Enjoy the perfect blend of crunch and spice — our traditional Nimko brings authentic flavor to your tea time moments.</p>
+      </div>
+      
+      <div class="nimko-img">
+        <img src="nimko.png" alt="Crispy Nimko">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ===== PUFF SECTION ===== -->
+<div class="main-eight" id="puff">
+  <div class="puff-section">
+    <div class="puff-container">
+
+      <div class="puff-text">
+        <h1>Airy Puff Delight 🥐</h1>
+        <div class="line-puff"></div>
+        <h3>Light, Fluffy & Crispy</h3>
+        <p>Experience the perfect puff — airy layers baked to perfection, with a subtle hint of salt. Ideal for snacks or tea time indulgence.</p>
+      </div>
+
+      <div class="puff-img">
+        <img src="vegetable_pastry.png" alt="Delicious Puff">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ===== PIZZA SECTION ===== -->
+<div class="main-nine" id="pizza">
+  <div class="pizza-section">
+    <div class="pizza-container">
+
+        <div class="pizza-img">
+        <img src="pizza (1).png" alt="Delicious Pizza">
+      </div>
+
+      <div class="pizza-text">
+        <h1>Delicious Pizza 🍕</h1>
+        <div class="line-pizza"></div>
+        <h3>Cheesy, Crispy & Flavorful</h3>
+        <p>Enjoy a slice of heaven — perfectly baked crust, melted cheese, and fresh toppings. A treat for all pizza lovers!</p>
+      </div>
+
+
+
+     
+     
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ===== SWEET SECTION ===== -->
+<div class="main-ten" id="sweets">
+  <div class="sweet-section">
+    <div class="sweet-container">
+
+  
+
+      <div class="sweet-text">
+        <h1>Delicious Sweets 🍬</h1>
+        <div class="line-sweet"></div>
+        <h3>Sweetness That Melts in Your Mouth</h3>
+        <p>From traditional delights to modern treats — our sweets are made with pure love, rich ingredients, and unmatched taste.</p>
+      </div>
+
+
+
+
+          <div class="sweet-img">
+        <img src="how-to-create-new-colour-9539269_1280.jpg" alt="Delicious Sweets">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-container" style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: auto;">
+    
+    <!-- About Section -->
+    <div class="footer-about" style="flex: 1; min-width: 250px; margin-bottom: 30px;">
+      <h2>Bakery Heaven</h2>
+      <p>Delighting taste buds with freshly baked treats and artisanal pastries. Join us for sweetness in every bite!</p>
+    </div>
+    
+    <!-- Quick Links -->
+    <div class="footer-links" style="flex: 1; min-width: 200px; margin-bottom: 30px;">
+      <h3>Quick Links</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#biscuit">Biscuits</a></li>
+        <li><a href="#donut">Donuts</a></li>
+        <li><a href="#pastry">Pastry</a></li>
+        <li><a href="#nimko">Nimko</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- Contact Info -->
+    <div class="footer-contact" style="flex: 1; min-width: 250px; margin-bottom: 30px;">
+      <h3>Contact Us</h3>
+      <p>Email: info@bakeryheaven.com</p>
+      <p>Phone: +92 300 1234567</p>
+      <p>Address: 123 Sweet Street, Faisalabad, Pakistan</p>
+    </div>
+    
+    <!-- Social Media -->
+    
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    &copy; 2025 Bakery Heaven. All Rights Reserved.
+  </div>
+</footer>
+
+
+
+
+
+  <!-- 🌟 SCRIPT -->
+  <script>
+    // Navbar toggle
+    const toggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+    toggle.addEventListener("click", () => {
+      navbar.classList.toggle("active");
+      toggle.classList.toggle("open");
+    });
+
+    // Navbar scroll effect
+    window.addEventListener("scroll", () => {
+      const nav = document.querySelector("section");
+      nav.classList.toggle("scrolled", window.scrollY > 50);
+    });
+
+    // Auto-Sliding Hero Background
+    const hero = document.getElementById("hero");
+    const images = [
+      "cake1.jpg",
+      "cake2.jpg",
+      "cake3.jpg",
+      "cake4.jpg",
+      "cake5.jpg"
+    ];
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      hero.style.backgroundImage = `url('${images[index]}')`;
+    }, 4000);
+  </script>
+</body>
+</html>
